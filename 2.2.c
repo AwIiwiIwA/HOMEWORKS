@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-//Реализовать возведение в степень — в лоб (за линейное время) и за О(log n).
+//ГђГҐГ Г«ГЁГ§Г®ГўГ ГІГј ГўГ®Г§ГўГҐГ¤ГҐГ­ГЁГҐ Гў Г±ГІГҐГЇГҐГ­Гј вЂ” Гў Г«Г®ГЎ (Г§Г  Г«ГЁГ­ГҐГ©Г­Г®ГҐ ГўГ°ГҐГ¬Гї) ГЁ Г§Г  ГЋ(log n).
 
 int power()
 {
@@ -9,7 +9,7 @@ int power()
 	int x;
 	scanf_s("%i", &x);
 
-	printf("Write a number");
+	printf("Write a power of number");
 	int n;
 	scanf_s("%i", &n);
 
