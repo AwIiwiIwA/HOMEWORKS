@@ -1,120 +1,110 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
+// I am did't do maxsize , because my IDE cant scanf this.
 
-#define MAXIMUMSIZE 256
-
-bool isCorrectString(char* string)
+int IncomingDataStatus(char symbol, char state) 
 {
-    int state = 0;
-    char currentCharacter = -1;
-    int counter = 0;
-    bool isContinue = true;
-    while (isContinue && currentCharacter != '\0')
+    switch (symbol)
     {
-        currentCharacter = string[counter++];
-        switch (state)
+        case 1:
         {
-        case 0:
-            if ((currentCharacter >= 'A' && currentCharacter <= 'Z') || (currentCharacter >= 'a' && currentCharacter <= 'z'))
+            if (symbol >= 'A' && symbol <= 'Z' || symbol >= 'a' && symbol <= 'z')
             {
                 state = 1;
-                break;
             }
-            return false;
-        case 1:
-            if ((currentCharacter >= 'A' && currentCharacter <= 'Z') || (currentCharacter >= 'a' && currentCharacter <= 'z') ||
-                (currentCharacter >= '0' && currentCharacter <= '9') || (currentCharacter == '_'))
-            {
-                break;
-            }
-            isContinue = false;
-            break;
         }
-    }
-    return currentCharacter == '\0';
-}
-
-bool tests()
-{
-    char testString1[] = "My_var001";
-    char testString2[] = "A";
-    char testString3[] = "_Afewew";
-    char testString4[] = "M_>_";
-
-    return isCorrectString(testString1) &&
-        isCorrectString(testString2) &&
-        !isCorrectString(testString3) &&
-        !isCorrectString(testString4);
-}
-
-#include <stdio.h>
-#include <stdbool.h>
-
-#define maximumSize 256
-
-bool isCorrectString(char* string)
-{
-    int state = 0;
-    char currentCharacter = -1;
-    int counter = 0;
-    bool isContinue = true;
-    while (isContinue && currentCharacter != '\0')
-    {
-        currentCharacter = string[counter++];
-        switch (state)
+        case 2:
         {
-        case 0:
-            if ((currentCharacter >= 'A' && currentCharacter <= 'Z') || (currentCharacter >= 'a' && currentCharacter <= 'z'))
+            if (symbol >= '0' && symbol <= '9')
             {
                 state = 1;
-                break;
             }
-            return false;
-        case 1:
-            if ((currentCharacter >= 'A' && currentCharacter <= 'Z') || (currentCharacter >= 'a' && currentCharacter <= 'z') ||
-                (currentCharacter >= '0' && currentCharacter <= '9') || (currentCharacter == '_'))
+        }
+        case 3:
+        {
+            if (symbol == "_")
             {
-                break;
+                state = 1;
             }
-            isContinue = false;
-            break;
+
+        }
+        case 4:
+        {
+            if ((symbol >= 'A' && symbol <= 'Z') || (symbol >= 'a' && symbol <= 'z') || (symbol >= '0' && symbol <= '9') || (symbol == "_"))
+            {
+                state = 1;
+            }
+            else;
+            {
+                state = 2; // state can be 0,1. 2 is false.
+
+            }
+        }
+     break;
+    }
+    return state;
+}
+
+bool isCorrectString(char *string)
+{
+    int state = 0;
+    for (; *string != "/0"; string++)
+    {
+        state = IncomingDataStatus(*string, IncomingDataStatus);
+        if (IncomingDataStatus == 2)
+        {
+            return false;
         }
     }
-    return currentCharacter == '\0';
+    return state == 1;
 }
 
-bool tests()
+bool trueTests()
 {
-    char testString1[] = "My_var001";
-    char testString2[] = "A";
-    char testString3[] = "_Afewew";
-    char testString4[] = "M_>_";
+    char test1[] = "MyNameIs_Agent007";
+    char test2[] = "F";
+    
 
-    return isCorrectString(testString1) &&
-        isCorrectString(testString2) &&
-        !isCorrectString(testString3) &&
-        !isCorrectString(testString4);
+    return isCorrectString(test1) &&
+        isCorrectString(test2);
 }
 
+bool falseTests()
+{
+    char test3[] = "_Rtfjkflf";
+    char test4[] = "A_+m-9";
+
+    return !isCorrectString(test3) &&
+        !isCorrectString(test4);
+       
+}
+ 
 int main()
 {
-    if (!tests())
+    if (trueTests == (false))
     {
-        printf("Tests failed!\n");
-        return -1;
+        printf("TRUE TEST FAILED , try again \n\n");
+        return 0;
     }
-    char string[maximumSize] = { 0 };
-    printf("Enter the string you want to test for the regular expression [A-Za-z] ([A-Za-z] | [0-9] | _ )*\n");
-    printf("(but not more than %d characters):\n", maximumSize - 1);
-    scanf_s("%s", string);
+    if (falseTests == (false))
+    {
+        printf("FALSE FAILED , try again \n\n");
+        return 0;
+    }
+    char string[] = { 0 };
+    printf("\nThis program can do the regular expression [A-Za-z] ([A-Za-z] | [0-9] | _ )*\n");
+    printf("Enter the string to test perogram:");
+    printf("(pls write only (decimal):\n");
+    scanf("%s", string); //I cant check prog is working or not because %s crash scan
 
     if (isCorrectString(string))
     {
-        printf("\"%s\" matches the regular expression!\n", string);
+        printf("\"%s\"It's correct regular expression: \n", string);
     }
     else
     {
-        printf("\"%s\" does not match the regular expression :(\n", string);
+        printf("\"%s\" Ii's not regular expression: :(\n", string);
     }
 
     return 0;
