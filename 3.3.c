@@ -2,12 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-
 #define arraySize 15
 #define countArraySize 30
-
-//task 3.3
-//Найти наиболее часто встречающийся элемент в массиве быстрее, чем за O(n2). Если таких элементов несколько, надо вывести любой из них.
 
 void printArray(int* array, int arrayLength)
 {
