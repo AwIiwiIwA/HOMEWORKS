@@ -46,22 +46,8 @@ int main()
     scanf_s("%f", &number);
     printf("Enter power: ");
     scanf_s("%d", &power);
-    printf("How you want to calculate it?\nIf by quick algorithm (log(n)) enter'1', if by simple algorithm '2': \n");
-    int choice = 0;
-    scanf_s("%d", &choice);
-    while (!(choice == 1 || choice == 2)) 
-    {
-        printf("You can enter only '1' or '2'. Try again\nHow you want to calculate it? If by quick algorithm"
-            " enter '1', if by simple algorithm '2': ");
-        scanf_s("%d", &choice);
-    }
-    if (choice == 1)
-    {
-        printf("The result is %f\n", expLogN(number, power));
-    }
-    else 
-    {
-        printf("The result is %f\n", expLinear(number, power));
-    }
+    printf("The result Log(n) %f\n", expLogN(number, power));
+    printf("The result Linear %f\n", expLinear(number, power));
+    
     return 0;
 }
