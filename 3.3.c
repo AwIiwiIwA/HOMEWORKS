@@ -1,76 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <stdbool.h>
-#define arraySize 15
-#define countArraySize 30
 
-void printArray(int* array, int arrayLength)
-{
-    for (int i = 0; i < arrayLength; ++i)
-    {
-        printf("%d ", array[i]);
-    }
-    printf("\n");
-}
+#define SIZE 1000000 // Size of hash table
 
-int sortedMassive(int* array, int arrayLength)
+int findMostFrequent(int arr[], int n)
 {
-    qsort(array, 0, arrayLength - 1);
-    int mostFrequentNumber = array[0];
-    int counter = 1;
-    int maxCounter = 1;
-    for (int i = 0; i < arrayLength - 1; ++i)
+    int i, max_count = 0, max_num = 0;
+    int* hash_table = (int*)calloc(SIZE, sizeof(int)); // Initialize the hash table with zeros
+
+    for (i = 0; i < n; i++) 
     {
-        if (array[i] == array[i + 1])
+        int num = arr[i];
+        hash_table[num]++;
+        if (hash_table[num] > max_count)
         {
-            ++counter;
-            if (counter > maxCounter)
-            {
-                mostFrequentNumber = array[i];
-                maxCounter = counter;
-            }
-        }
-        else
-        {
-            counter = 1;
+            max_count = hash_table[num];
+            max_num = num;
         }
     }
 
-    return mostFrequentNumber;
+    free(hash_table);
+    return max_num;
 }
 
-bool test()
+int main()
 {
-    int array[15] = { 7, 1, 23, 42, 14, 6, 3, 13, 19, 11, 8, 28, 15, 11, 16 };
-    qsort(array, 0, 14);
-    if (sortedMassive(array, 15) == 10)
-    {
-        return true;
-    }
-    return false;
+    int arr[] = { 1, 2, 3, 4, 5, 6, 1, 2, 1, 1 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int most_frequent = findMostFrequent(arr, n);
+    printf("Most frequent element: %d\n", most_frequent);
+    return 0;
 }
 
-void main()
-{
-    if (test())
-    {
-        printf("TEST PASSED!\n");
-    }
-    else
-    {
-        printf("TEST FAILED!\n");
-        return;
-    }
-    int array[arraySize] = { 0 };
-
-    srand(time(0));
-    for (int i = 0; i < arraySize; ++i)
-    {
-        array[i] = rand() % countArraySize;
-    }
-    printf("Your array: ");
-    printArray(array, arraySize);
-
-    printf("The most frequent number in the array is %d", sortedMassive(array, arraySize));
-}
