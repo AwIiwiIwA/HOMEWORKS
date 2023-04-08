@@ -31,11 +31,10 @@ int main()
     scanf_s("%d", &k);
 
     int arr[MAX_SIZE];
-    // Генерация массива из n случайных чисел
+    // Р“РµРЅРµСЂР°С†РёСЏ РјР°СЃСЃРёРІР° РёР· n СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
     for (i = 0; i < n; i++)
         arr[i] = rand() % 100;
 
-    // Сортировка массива
     qsort(arr, n, sizeof(int), compare);
 
     printf("Generated array: ");
@@ -43,7 +42,7 @@ int main()
         printf("%d ", arr[i]);
     printf("\n");
 
-    // Поиск k случайных чисел
+    // РџРѕРёСЃРє k СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
     for (i = 0; i < k; i++) 
     {
         int x = rand() % 100;
