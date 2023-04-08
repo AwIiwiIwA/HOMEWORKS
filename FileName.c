@@ -1,69 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <string.h>
+#include "stack.h"
 
-#define STACK_SIZE 100
+// функция для проверки баланса скобок в строке
+int checkBalance(char *str) {
+    int len = strlen(str);
+    Stack s;
+    s.top = NULL;
 
-char stack[STACK_SIZE];
-int top = -1;
-
-void push(char ch) {
-    if (top == STACK_SIZE - 1) 
-    {
-        printf("Stack overflow\n");
-        exit(1);
-    }
-    stack[++top] = ch;
-}
-
-char pop() 
-{
-    if (top == -1) 
-    {
-        printf("Stack underflow\n");
-        exit(1);
-    }
-    return stack[top--];
-}
-
-bool matchingPair(char left, char right) 
-{
-    if (left == '(' && right == ')')
-        return true;
-    else if (left == '[' && right == ']')
-        return true;
-    else if (left == '{' && right == '}')
-        return true;
-    else
-        return false;
-}
-
-bool isBalanced(char exp[]) 
-{
-    int i = 0;
-    while (exp[i]) {
-        if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{')
-            push(exp[i]);
-        else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}') 
-        {
-            if (top == -1 || !matchingPair(pop(), exp[i]))
-                return false;
+    for (int i = 0; i < len; i++) {
+        if (str[i] == '(' || str[i] == '[' || str[i] == '{') {
+            push(&s, str[i]);
         }
-        i++;
+        else if (str[i] == ')' || str[i] == ']' || str[i] == '}') {
+            if (isEmpty(&s)) {
+                return 0;
+            }
+            int c = pop(&s);
+            if ((str[i] == ')' && c != '(') || (str[i] == ']' && c != '[') || (str[i] == '}' && c != '{')) {
+                return 0;
+            }
+        }
     }
-    return (top == -1);
+    return isEmpty(&s);
 }
 
-int main() 
-{
-    char exp[STACK_SIZE];
-    printf("Enter an expression: ");
-    fgets(exp, STACK_SIZE, stdin);
+int main() {
+    char str[100];
+    printf("Enter a string of brackets: ");
+    scanf("%s", str);
 
-    if (isBalanced(exp))
-        printf("The expression is balanced\n");
-    else
-        printf("The expression is not balanced\n");
+    if (checkBalance(str)) {
+        printf("The brackets are balanced.\n");
+    }
+    else {
+        printf("The brackets are not balanced.\n");
+    }
 
     return 0;
 }
