@@ -56,17 +56,28 @@ void qsortCustom(int* arr, int size)
     quicksort(arr, 0, size - 1);
 }
 
-int main() {
-    int arr[] = { 10, 5, 8, 1, 9, 3, 6, 7, 2, 4 };
-    int size = sizeof(arr) / sizeof(arr[0]);
+int main() 
+{
+    int size;
+    printf("Enter the size of the array: ");
+    scanf_s("%d", &size);
+
+    int* arr = (int*)malloc(size * sizeof(int));
+    printf("Enter %d integers:\n", size);
+    for (int i = 0; i < size; i++)
+    {
+        scanf_s("%d", &arr[i]);
+    }
 
     qsortCustom(arr, size);
 
+    printf("Sorted array: ");
     for (int i = 0; i < size; i++)
     {
         printf("%d ", arr[i]);
     }
     printf("\n");
 
+    free(arr);
     return 0;
 }
