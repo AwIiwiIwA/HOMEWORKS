@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+#define MAX_SIZE 128
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    FILE* fp;
+    int newlinePrinted = 0;
+
+    if (fopen_s(&fp, "file.txt", "r") != 0)
+    {
+        printf("Не удалось открыть файл.");
+        return 1;
+    }
+
+    int freq[256] = { 0 }; 
+
+    int c;
+    while ((c = fgetc(fp)) != EOF)
+    {
+        freq[c]++;
+    }
+
+    fclose(fp);
+
+    printf("Частоты символов в файле 'file.txt':\n");
+
+    for (int i = 0; i < 256; i++) 
+    {
+        if (freq[i] > 0) 
+        {
+            if (i == '\n') 
+            {
+                if (!newlinePrinted) 
+                { 
+                    printf("Количество \\n = %d\n", freq[i]);
+                    newlinePrinted = 1; 
+                }
+            }
+            else 
+            {
+                printf("Количество %c = %d\n", i, freq[i]);
+            }
+        }
+    }
+
+    return 0;
+}
