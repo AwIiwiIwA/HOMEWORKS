@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+
+
+int isPalindrome(char* str) 
+{
+    int length = strlen(str);
+    for (int i = 0; i < length / 2; i++) 
+    {
+        if (str[i] != str[length - i - 1]) 
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() 
+{
+    setlocale(LC_ALL, "Russian");
+    char str[100];
+    printf("Введите строку: ");
+    scanf_s("%s", str, 100);
+
+    if (isPalindrome(str)) 
+    {
+        printf("%s - Строка является палиндромом!\n\n", str);
+    }
+    else 
+    {
+        printf("%s - Строка не является палиндромом!\n\n", str);
+    }
+
+    // Tests
+    char str1[] = "радар";
+    if (isPalindrome(str1)) 
+    {
+        printf("%s - Строка является палиндромом!\n", str1);
+    }
+    else 
+    {
+        printf("%s - Строка не является палиндромом!\n", str1);
+    }
+
+    char str2[] = "wtf";
+    if (isPalindrome(str2)) 
+    {
+        printf("%s - Строка является палиндромом!\n", str2);
+    }
+    else 
+    {
+        printf("%s - Строка не является палиндромом!\n", str2);
+    }
+
+    char str3[] = "radar";
+    if (isPalindrome(str3)) 
+    {
+        printf("%s - Строка является палиндромом!\n", str3);
+    }
+    else 
+    {
+        printf("%s - Строка не является палиндромом!\n", str3);
+    }
+
+    return 0;
+}
